@@ -1,0 +1,4 @@
+General:
+  implicitlyWaitTime: 4
+  pageLoadTime: 30
+  headless: false

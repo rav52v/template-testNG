@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+
+  <Properties>
+    <Property name="LOG_PATTERN">%d [%t] %-5level [%l] %msg%n</Property>
+  </Properties>
+
+  <Appenders>
+    <File name="CurrentTest" fileName="logs/last_test_log.log" append="false">
+      <PatternLayout>
+        <Pattern>${LOG_PATTERN}</Pattern>
+      </PatternLayout>
+      <LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+    </File>
+
+    <RollingFile name="FullLogFile" fileName="logs/log.log" append="true"
+                 filePattern="logs/$${date:yyyy-MM-dd}/log-%d{MM-dd-yyyy}-%i.log">
+      <Policies>
+        <SizeBasedTriggeringPolicy size="30KB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="3" fileIndex="min"/>
+      <PatternLayout>
+        <Pattern>${LOG_PATTERN}</Pattern>
+      </PatternLayout>
+      <LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+    </RollingFile>
+
+    <Console name="Console-info" target="SYSTEM_OUT">
+      <PatternLayout pattern="${LOG_PATTERN}"/>
+      <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+    </Console>
+
+
+    <Console name="Console-error" target="SYSTEM_ERR">
+      <PatternLayout pattern="${LOG_PATTERN}"/>
+      <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+    </Console>
+  </Appenders>
+
+  <Loggers>
+
+    <Root level="all">
+      <AppenderRef ref="FullLogFile"/>
+      <AppenderRef ref="CurrentTest"/>
+      <AppenderRef ref="Console-info"/>
+      <AppenderRef ref="Console-error"/>
+    </Root>
+
+    <Logger name="Console-info" level="info">
+      <AppenderRef ref="Console-info"/>
+    </Logger>
+
+    <Logger name="Console-error" level="error">
+      <AppenderRef ref="Console-error"/>
+    </Logger>
+
+  </Loggers>
+</Configuration>
