@@ -1,10 +1,13 @@
 package main.java.core.functions;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +31,19 @@ public class InputFunctions extends BaseFunction {
 
     try {
       element.clear();
-    } catch (Exception ignored) {}
+    } catch (Exception ignored) {
+    }
     element.sendKeys(value);
+  }
+
+  public void sendKeysToElementUsingClipboard(WebElement element, String value) {
+    log.debug("Storing text {" + value + "} in cache");
+    try {
+      element.clear();
+    } catch (Exception ignored) {
+    }
+    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(value), null);
+    sendKeysToElement(element, Keys.CONTROL + "v", Keys.TAB);
   }
 
   public void sendKeys(CharSequence... value) {
