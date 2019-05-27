@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Quality Minds" thread-count="3" parallel="methods">
+<suite name="Page Object Model - TestNG" thread-count="3" parallel="methods">
     <test name="Chrome Test">
         <!-- options fo parameter 'browser': chrome, mozilla -->
         <parameter name="browser" value="chrome"/>

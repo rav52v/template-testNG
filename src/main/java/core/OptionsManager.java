@@ -11,9 +11,9 @@ class OptionsManager {
 
   ChromeOptions setChromeOptions() {
     WebDriverManager.chromedriver().setup();
-    ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--disable-infobars");
-    chromeOptions.setHeadless(headless);
+    ChromeOptions chromeOptions = new ChromeOptions()
+            .addArguments("--disable-infobars")
+            .setHeadless(headless);
     if (headless) {
       chromeOptions.addArguments("--window-size=1500,4000");
       chromeOptions.addArguments("--disable-gpu");
@@ -24,9 +24,9 @@ class OptionsManager {
 
   FirefoxOptions setFirefoxOptions() {
     WebDriverManager.firefoxdriver().setup();
-    FirefoxOptions firefoxOptions = new FirefoxOptions();
-    firefoxOptions.addArguments("--disable-notifications");
-    firefoxOptions.setHeadless(headless);
+    FirefoxOptions firefoxOptions = new FirefoxOptions()
+            .addArguments("--disable-notifications")
+            .setHeadless(headless);
     if (headless) firefoxOptions.addArguments("window-size=1500,4000");
 
     return firefoxOptions;
