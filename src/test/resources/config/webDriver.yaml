@@ -1,4 +1,5 @@
 General:
   implicitlyWaitTime: 4
+  webDriverWait: 5
   pageLoadTime: 30
   headless: false

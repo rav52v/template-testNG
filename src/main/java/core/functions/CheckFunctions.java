@@ -13,7 +13,8 @@ import static main.java.core.ConfigService.getConfigService;
 public class CheckFunctions extends BaseFunction {
 
   public boolean isElementDisplayed(WebElement element, int maxWaitTimeSec) {
-    log.debug("Check if element {" + getElementInfo(element) + "} is displayed, max waiting time {" + maxWaitTimeSec + " seconds}");
+    log.debug("Check if element {" + getElementInfo(element) + "} is displayed, max waiting time {" + maxWaitTimeSec
+            + " seconds}");
 
     changeImplicitlyWaitTime(0);
     try {
@@ -59,8 +60,7 @@ public class CheckFunctions extends BaseFunction {
   }
 
   public boolean isElementFound(List<WebElement> element, int maxWaitTimeMillis) {
-    log.debug("Check if element is found (using list), max waiting time {"
-            + maxWaitTimeMillis + " milliseconds}");
+    log.debug("Check if element is found (using list), max waiting time {" + maxWaitTimeMillis + " milliseconds}");
 
     changeImplicitlyWaitTime(maxWaitTimeMillis);
     if (!element.isEmpty()) {
@@ -88,7 +88,7 @@ public class CheckFunctions extends BaseFunction {
   public boolean isElementClickable(WebElement element) {
     changeImplicitlyWaitTime(0);
     try {
-      new WebDriverWait(driver.getDriver(), 5, 40)
+      new WebDriverWait(driver.getDriver(), DEFAULT_WEB_DRIVER_WAIT_TIME)
               .until(ExpectedConditions.elementToBeClickable(element));
       turnOnImplicitlyWaitTime();
       return true;
@@ -107,7 +107,7 @@ public class CheckFunctions extends BaseFunction {
 
     changeImplicitlyWaitTime(0);
     try {
-      new WebDriverWait(driver.getDriver(), 5).until(
+      new WebDriverWait(driver.getDriver(), DEFAULT_WEB_DRIVER_WAIT_TIME).until(
               ExpectedConditions.numberOfElementsToBe(locator, numberOfExpectedElements));
       turnOnImplicitlyWaitTime();
       return true;

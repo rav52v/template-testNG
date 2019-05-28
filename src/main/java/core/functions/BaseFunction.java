@@ -23,6 +23,7 @@ abstract class BaseFunction {
   final Logger log = LogManager.getLogger();
   final Path pathInputFolder = Paths.get("inputFolder");
   final Path pathOutputFolder = Paths.get("outputFolder");
+  final long DEFAULT_WEB_DRIVER_WAIT_TIME = getConfigService().getLongProperty("General.webDriverWait");
 
   BaseFunction() {
     driver = new Driver();
@@ -50,12 +51,14 @@ abstract class BaseFunction {
 
       @Override
       public Boolean apply(WebDriver driver) {
-        String documentReadyState = (String) ((JavascriptExecutor) driver).executeScript("return document.readyState;");
+        String documentReadyState = (String) ((JavascriptExecutor) driver)
+                .executeScript("return document.readyState;");
 
         Long jQueryActive = (Long) ((JavascriptExecutor) driver)
                 .executeScript("if(window.jQuery) { return window.jQuery.active; } else { return -1; }");
 
-        log.debug(String.format("waitForPageLoading -> document.readyState: %s, jQuery.active: %d", documentReadyState, jQueryActive));
+        log.debug(String.format("waitForPageLoading -> document.readyState: %s, jQuery.active: %d"
+                , documentReadyState, jQueryActive));
 
         if (jQueryActive == -1) {
           noJQueryCounter++;

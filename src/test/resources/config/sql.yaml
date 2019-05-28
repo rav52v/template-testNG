@@ -1,0 +1,4 @@
+Sql:
+  conUrl: jdbc:mysql://185.28.102.242/otomoto5?useUnicode=true&characterEncoding=utf8
+  login: otomoto9
+  password: 9rmvqx5nympfviy

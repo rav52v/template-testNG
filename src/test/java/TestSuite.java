@@ -8,18 +8,18 @@ public class TestSuite extends TestBase {
   @Test(priority = 1)
   public void testCase1() {
     new MainPage()
-            .msdsd();
+            .sampleMethod();
   }
 
   @Test(priority = 2)
   public void testCase2() {
     new MainPage()
-            .msdsd();
+            .sampleMethod();
   }
 
   @Test(priority = 3)
   public void testCase3() {
     new MainPage()
-            .msdsd();
+            .sampleMethod();
   }
 }

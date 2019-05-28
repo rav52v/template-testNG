@@ -10,7 +10,7 @@ public class MainPage extends TopMenu {
   @FindBy(css = "a.sample")
   private WebElement sample;
 
-  public void msdsd(){
+  public void sampleMethod(){
     browser.openPage(getConfigService().getStringProperty("Data.url"));
     browser.openNewTab();
     browser.switchToSecondTab();
