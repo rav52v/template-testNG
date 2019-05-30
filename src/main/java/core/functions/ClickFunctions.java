@@ -21,7 +21,7 @@ public class ClickFunctions extends BaseFunction {
       click(element);
     } catch (WebDriverException e) {
       log.debug("Problem with click noticed, trying to scroll into viewport, then repeat.");
-      scrollToElement(element, 500);
+      scrollIntoView(element);
       sleeper(1000);
       click(element);
     }
@@ -39,7 +39,7 @@ public class ClickFunctions extends BaseFunction {
       click(element);
     } catch (WebDriverException e) {
       log.debug("Problem with click noticed, trying to scroll into viewport, then repeat.");
-      scrollToElement(element, 500);
+      scrollIntoView(element);
       sleeper(1000);
       click(element);
     }

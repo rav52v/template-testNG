@@ -70,6 +70,18 @@ public class BrowserFunctions extends BaseFunction {
     ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].scrollIntoView()", element);
   }
 
+  /**
+   * @param element   WebElement, we want to see in view port
+   * @param smooth    Set 'true' for slow animation
+   * @param alignment One of "start", "center", "end", or "nearest"
+   */
+  public void scrollIntoView(WebElement element, String alignment, boolean... smooth) {
+    ((JavascriptExecutor) driver.getDriver()).executeScript(
+            "arguments[0].scrollIntoView({behavior: \""
+                    + (smooth.length == 0 ? "auto" : (smooth[0] ? "smooth" : "auto"))
+                    + "\", block: \"" + alignment + "\"})", element);
+  }
+
   public void refreshPage() {
     driver.getDriver().navigate().refresh();
   }

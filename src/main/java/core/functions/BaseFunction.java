@@ -108,24 +108,7 @@ abstract class BaseFunction {
     return new SimpleDateFormat("HH:mm").format(calendar.getTime());
   }
 
-  void scrollToElement(WebElement element, int scrollValue) {
-    JavascriptExecutor js = (JavascriptExecutor) driver.getDriver();
-    int elementYPosition = element.getLocation().getY();
-    int browserYSize = ((Number) js.executeScript("return window.innerHeight")).intValue();
-    int scrollTempValue = 0;
-
-    if (browserYSize - 350 < elementYPosition) {
-      scrollTempValue = Math.abs(browserYSize - elementYPosition);
-      if (scrollTempValue < 100)
-        scrollTempValue += scrollValue;
-      else if (scrollTempValue < 200)
-        scrollTempValue += scrollValue - 100;
-      else if (scrollTempValue < 300)
-        scrollTempValue += scrollValue - 200;
-      else
-        scrollTempValue += scrollValue;
-    }
-    log.debug("Scrolled by " + scrollTempValue + "px");
-    js.executeScript("window.scrollBy(0," + scrollTempValue + ")");
+  void scrollIntoView(WebElement element) {
+    ((JavascriptExecutor) driver.getDriver()).executeScript("arguments[0].scrollIntoView()", element);
   }
 }
