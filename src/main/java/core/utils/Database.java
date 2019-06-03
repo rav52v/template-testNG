@@ -29,8 +29,7 @@ public class Database {
   }
 
   public static Database getInstance() {
-    if (instance == null)
-      instance = new Database();
+    if (instance == null) instance = new Database();
     return instance;
   }
 
@@ -59,10 +58,9 @@ public class Database {
     try {
       PreparedStatement pstmt = con.prepareStatement(query);
 
-      if (value instanceof String)
-        pstmt.setString(1, (String) value);
-      else if (value instanceof Integer)
-        pstmt.setInt(1, (Integer) value);
+      if (value instanceof java.lang.String) pstmt.setString(1, (String) value);
+      else if (value instanceof java.lang.Integer) pstmt.setInt(1, (Integer) value);
+      else if (value instanceof java.lang.Long) pstmt.setLong(1, (Long) value);
 
       rs = pstmt.executeQuery();
       return rs.next();
@@ -85,15 +83,13 @@ public class Database {
     try {
       PreparedStatement pstmt = con.prepareStatement(query);
 
-      if (newValue instanceof String)
-        pstmt.setString(1, (String) newValue);
-      else if (newValue instanceof Integer)
-        pstmt.setInt(1, (Integer) newValue);
+      if (newValue instanceof java.lang.Long) pstmt.setLong(1, (Long) newValue);
+      else if (newValue instanceof java.lang.Integer) pstmt.setInt(1, (Integer) newValue);
+      else pstmt.setString(1, (String) newValue);
 
-      if (valueWhere instanceof String)
-        pstmt.setString(2, (String) valueWhere);
-      else if (valueWhere instanceof Integer)
-        pstmt.setInt(2, (Integer) valueWhere);
+      if (valueWhere instanceof java.lang.Long) pstmt.setLong(2, (Long) valueWhere);
+      else if (valueWhere instanceof java.lang.Integer) pstmt.setInt(2, (Integer) valueWhere);
+      else pstmt.setString(2, (String) valueWhere);
 
       pstmt.executeUpdate();
     } catch (SQLException e) {
@@ -109,7 +105,7 @@ public class Database {
    */
   public void insertRecords(String table, String[] columns, Object[] values) {
     if (columns.length != values.length) {
-      log.error("Columns length {" + columns.length + "} is not the same as number of values {"
+      log.error("Columns length {" + columns.length + "} is not the same as values length {"
               + values.length + "}");
       throw new RuntimeException("Columns length {" + columns.length + "} is not the same as number of values {"
               + values.length + "}");
@@ -122,10 +118,9 @@ public class Database {
     try {
       pstmt = con.prepareStatement(query);
       for (int i = 0; i < values.length; i++) {
-        if (values[i] instanceof String)
-          pstmt.setString(i + 1, (String) values[i]);
-        else if (values[i] instanceof Integer)
-          pstmt.setInt(i + 1, (Integer) values[i]);
+        if (values[i] instanceof java.lang.Long) pstmt.setLong(i + 1, (Long) values[i]);
+        else if (values[i] instanceof java.lang.Integer) pstmt.setInt(i + 1, (Integer) values[i]);
+        else pstmt.setString(i + 1, (String) values[i]);
       }
       pstmt.executeUpdate();
     } catch (SQLException e) {
@@ -147,10 +142,9 @@ public class Database {
     try {
       PreparedStatement pstmt = con.prepareStatement(query);
 
-      if (valueWhere instanceof String)
-        pstmt.setString(1, (String) valueWhere);
-      else if (valueWhere instanceof Integer)
-        pstmt.setInt(1, (Integer) valueWhere);
+      if (valueWhere instanceof java.lang.Long) pstmt.setLong(1, (Long) valueWhere);
+      else if (valueWhere instanceof java.lang.Integer) pstmt.setInt(1, (Integer) valueWhere);
+      else pstmt.setString(1, (String) valueWhere);
 
       rs = pstmt.executeQuery();
       if (rs.next()) return rs.getString(columnWithResult);
@@ -174,10 +168,9 @@ public class Database {
     try {
       PreparedStatement pstmt = con.prepareStatement(query);
 
-      if (valueWhere instanceof String)
-        pstmt.setString(1, (String) valueWhere);
-      else if (valueWhere instanceof Integer)
-        pstmt.setInt(1, (Integer) valueWhere);
+      if (valueWhere instanceof java.lang.Long) pstmt.setLong(1, (Long) valueWhere);
+      else if (valueWhere instanceof java.lang.Integer) pstmt.setInt(1, (Integer) valueWhere);
+      else pstmt.setString(1, (String) valueWhere);
 
       rs = pstmt.executeQuery();
       if (rs.next()) return rs.getInt(columnWithResult);

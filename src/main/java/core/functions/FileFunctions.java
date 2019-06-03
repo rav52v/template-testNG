@@ -23,11 +23,8 @@ public class FileFunctions extends BaseFunction {
     File scrFile = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
     File target = new File(pathOutputFolder.toAbsolutePath().toString() + "/" + fileName + ".png");
     try {
-      if (target.exists())
-        target.delete();
-
+      if (target.exists()) target.delete();
       Files.copy(scrFile.toPath(), target.toPath());
-
       log.debug("File copied to {" + pathOutputFolder.toAbsolutePath().toString() + "\\" + fileName + ".png}");
     } catch (IOException e) {
       log.error(e.toString());

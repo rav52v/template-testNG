@@ -20,7 +20,6 @@ public class InputFunctions extends BaseFunction {
    */
   public void clickElementAndSendKeysToAnother(WebElement elementToClick, WebElement elementToSendKeys, CharSequence... value) {
     log.debug("Click element {" + getElementInfo(elementToClick) + "}...");
-
     new Actions(driver.getDriver()).moveToElement(elementToClick).click().sendKeys(value).perform();
     sendKeysToElement(elementToSendKeys, value);
   }
@@ -28,7 +27,6 @@ public class InputFunctions extends BaseFunction {
   public void sendKeysToElement(WebElement element, CharSequence... value) {
     log.debug("Send keys {" + Arrays.toString(value) + "} to element {"
             + getElementInfo(element) + "}");
-
     try {
       element.clear();
     } catch (Exception ignored) {
@@ -48,7 +46,6 @@ public class InputFunctions extends BaseFunction {
 
   public void sendKeys(CharSequence... value) {
     log.debug("Send keys {" + Arrays.toString(value) + "}");
-
     new Actions(driver.getDriver()).sendKeys(value).perform();
   }
 

@@ -39,10 +39,7 @@ public class Generators {
 
   public String gNumbers(int wordSize) {
     StringBuilder result = new StringBuilder();
-    for (int i = 0; i < wordSize; i++) {
-      char temp = NUMBER.charAt(random.nextInt(NUMBER.length()));
-      result.append(temp);
-    }
+    for (int i = 0; i < wordSize; i++) result.append(NUMBER.charAt(random.nextInt(NUMBER.length())));
     return result.toString();
   }
 
@@ -52,19 +49,13 @@ public class Generators {
 
   public String gLower(int wordSize) {
     StringBuilder result = new StringBuilder();
-    for (int i = 0; i < wordSize; i++) {
-      char temp = LOWER.charAt(random.nextInt(LOWER.length()));
-      result.append(temp);
-    }
+    for (int i = 0; i < wordSize; i++) result.append(LOWER.charAt(random.nextInt(LOWER.length())));
     return result.toString();
   }
 
   public String gUpper(int wordSize) {
     StringBuilder result = new StringBuilder();
-    for (int i = 0; i < wordSize; i++) {
-      char temp = UPPER.charAt(random.nextInt(UPPER.length()));
-      result.append(temp);
-    }
+    for (int i = 0; i < wordSize; i++)  result.append(UPPER.charAt(random.nextInt(UPPER.length())));
     return result.toString();
   }
 

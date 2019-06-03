@@ -79,8 +79,7 @@ public class CheckFunctions extends BaseFunction {
 
   public boolean containsRegexValue(List<WebElement> elementList, String regex) {
     for (WebElement element : elementList) {
-      if (element.getText().matches(regex))
-        return true;
+      if (element.getText().matches(regex)) return true;
     }
     return false;
   }
