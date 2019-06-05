@@ -15,7 +15,6 @@ public class CheckFunctions extends BaseFunction {
   public boolean isElementDisplayed(WebElement element, int maxWaitTimeSec) {
     log.debug("Check if element {" + getElementInfo(element) + "} is displayed, max waiting time {" + maxWaitTimeSec
             + " seconds}");
-
     changeImplicitlyWaitTime(0);
     try {
       new WebDriverWait(driver.getDriver(), maxWaitTimeSec).until(ExpectedConditions.visibilityOf(element));
@@ -30,7 +29,6 @@ public class CheckFunctions extends BaseFunction {
 
   public boolean isElementFound(By locator, int maxWaitTimeSec) {
     log.debug("Check if element {" + locator + "} is found, max waiting time {" + maxWaitTimeSec + " seconds}");
-
     changeImplicitlyWaitTime(0);
     try {
       new WebDriverWait(driver.getDriver(), maxWaitTimeSec).until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -46,7 +44,6 @@ public class CheckFunctions extends BaseFunction {
   public boolean isElementFound(WebElement element, int maxWaitTimeSec) {
     log.debug("Check if element {" + getElementInfo(element)
             + "} is found, max waiting time {" + maxWaitTimeSec + " seconds}");
-
     changeImplicitlyWaitTime(0);
     try {
       new WebDriverWait(driver.getDriver(), maxWaitTimeSec).until(ExpectedConditions.visibilityOf(element));
@@ -61,7 +58,6 @@ public class CheckFunctions extends BaseFunction {
 
   public boolean isElementFound(List<WebElement> element, int maxWaitTimeMillis) {
     log.debug("Check if element is found (using list), max waiting time {" + maxWaitTimeMillis + " milliseconds}");
-
     changeImplicitlyWaitTime(maxWaitTimeMillis);
     if (!element.isEmpty()) {
       turnOnImplicitlyWaitTime();
@@ -78,9 +74,7 @@ public class CheckFunctions extends BaseFunction {
   }
 
   public boolean containsRegexValue(List<WebElement> elementList, String regex) {
-    for (WebElement element : elementList) {
-      if (element.getText().matches(regex)) return true;
-    }
+    for (WebElement element : elementList) if (element.getText().matches(regex)) return true;
     return false;
   }
 
@@ -103,7 +97,6 @@ public class CheckFunctions extends BaseFunction {
 
   public boolean nElementsAreDisplayed(By locator, int numberOfExpectedElements) {
     log.debug("Check if {" + numberOfExpectedElements + "} elements {" + locator + "} are displayed");
-
     changeImplicitlyWaitTime(0);
     try {
       new WebDriverWait(driver.getDriver(), DEFAULT_WEB_DRIVER_WAIT_TIME).until(

@@ -9,7 +9,6 @@ public class ClickFunctions extends BaseFunction {
 
   public void clickOn(WebElement element, long... maxWaitTime) {
     log.debug("Click element {" + getElementInfo(element) + "}");
-
     long timeOutInSeconds = maxWaitTime.length > 0 ? maxWaitTime[0] : DEFAULT_WEB_DRIVER_WAIT_TIME;
     changeImplicitlyWaitTime(0);
     new WebDriverWait(driver.getDriver(), timeOutInSeconds).until(ExpectedConditions.elementToBeClickable(element));
@@ -26,7 +25,6 @@ public class ClickFunctions extends BaseFunction {
 
   public void clickOn(By by, long... maxWaitTime) {
     log.debug("Wait for element {" + by + "} to be clickable, then click it");
-
     long timeOutInSeconds = maxWaitTime.length > 0 ? maxWaitTime[0] : DEFAULT_WEB_DRIVER_WAIT_TIME;
     changeImplicitlyWaitTime(0);
     new WebDriverWait(driver.getDriver(), timeOutInSeconds).until(ExpectedConditions.elementToBeClickable(by));

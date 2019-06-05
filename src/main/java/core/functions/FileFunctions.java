@@ -35,11 +35,8 @@ public class FileFunctions extends BaseFunction {
 
   public void captureScreenshotOfElement(String fileName, WebElement element) {
     log.debug("Capture image of element {" + getElementInfo(element) + "}");
-
     File target = new File(pathOutputFolder.toAbsolutePath().toString() + "/" + fileName + ".png");
-    if (target.exists())
-      target.delete();
-
+    if (target.exists()) target.delete();
     File screen = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
 
     Point p = element.getLocation();
@@ -64,7 +61,6 @@ public class FileFunctions extends BaseFunction {
 
   public void saveTextToFile(String textValue, String fileName, boolean append) {
     File target = new File(pathOutputFolder.toAbsolutePath().toString() + "/" + fileName + ".txt");
-
     try (FileWriter fw = new FileWriter(target, append);
          BufferedWriter bw = new BufferedWriter(fw);
          PrintWriter out = new PrintWriter(bw)) {
@@ -91,7 +87,6 @@ public class FileFunctions extends BaseFunction {
         sb.append(ls);
       }
       reader.close();
-
       result = sb.toString();
     } catch (FileNotFoundException e) {
       log.error(e.getMessage());
@@ -99,7 +94,6 @@ public class FileFunctions extends BaseFunction {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
     return result;
   }
 
@@ -123,7 +117,6 @@ public class FileFunctions extends BaseFunction {
         e.printStackTrace();
       }
     }
-
     log.debug("Downloaded {" + counter + " images}");
   }
 

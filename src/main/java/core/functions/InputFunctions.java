@@ -51,8 +51,7 @@ public class InputFunctions extends BaseFunction {
 
   protected void selectByVisibleTextWithRegex(WebElement selectElement, String regex) {
     Select select = new Select(selectElement);
-    List<WebElement> options = select.getOptions();
-    for (WebElement option : options) {
+    for (WebElement option : select.getOptions()) {
       if (option.getText().matches(regex)) {
         select.selectByVisibleText(option.getText());
         log.debug("Option selected by visible text: {" + option.getText() + "}");

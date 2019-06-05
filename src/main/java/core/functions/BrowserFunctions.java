@@ -18,9 +18,8 @@ public class BrowserFunctions extends BaseFunction {
   public void switchToSecondTab() {
     log.debug("Switch to second tab");
     if (mainWindowHandle == null) mainWindowHandle = driver.getMainWindowHandle();
-    for (String winHandle : driver.getDriver().getWindowHandles()) {
+    for (String winHandle : driver.getDriver().getWindowHandles())
       if (!winHandle.equals(mainWindowHandle)) driver.switchWindow(driver.getDriver().switchTo().window(winHandle));
-    }
   }
 
   /**
@@ -91,8 +90,7 @@ public class BrowserFunctions extends BaseFunction {
    */
   public void scrollDownRefreshingPageTillEnd(List<WebElement> elementList) {
     long startTime = System.currentTimeMillis();
-    int refreshingListSize;
-    int refreshingListAfterSize;
+    int refreshingListSize, refreshingListAfterSize;
     do {
       refreshingListSize = elementList.size();
       new Actions(driver.getDriver()).sendKeys(Keys.END).perform();

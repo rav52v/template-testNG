@@ -102,7 +102,6 @@ public class GetFunctions extends BaseFunction {
 
     for (WebElement element : elementList) if (element.getText().matches(regex)) return element;
 
-
     log.debug("List doesn't contain given regex value {" + regex + "}");
     return null;
   }
