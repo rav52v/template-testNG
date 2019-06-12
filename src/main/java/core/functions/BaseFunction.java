@@ -38,12 +38,10 @@ abstract class BaseFunction {
   }
 
   public void waitForPageLoading() {
-    // wait for Ajax actions to begin
     sleeper(1000);
-
     changeImplicitlyWaitTime(0);
 
-    new WebDriverWait(driver.getDriver(), getConfigService().getLongProperty("General.pageLoadTime"))
+    new WebDriverWait(driver.getDriver(), getConfigService().getLongProperty("general.pageLoadTime"))
             .ignoring(StaleElementReferenceException.class).until(new ExpectedCondition<Boolean>() {
 
       private final int MAX_NO_JQUERY_COUNTER = 3;
@@ -57,26 +55,18 @@ abstract class BaseFunction {
         Long jQueryActive = (Long) ((JavascriptExecutor) driver)
                 .executeScript("if(window.jQuery) { return window.jQuery.active; } else { return -1; }");
 
-        log.debug(String.format("waitForPageLoading -> document.readyState: %s, jQuery.active: %d"
-                , documentReadyState, jQueryActive));
+        if (!documentReadyState.equals("complete")) log.debug("Page loading: waiting for JavaScript");
+        if (jQueryActive == -1) log.debug("Page loading: waiting for jQuery");
 
         if (jQueryActive == -1) {
           noJQueryCounter++;
-
-          if (noJQueryCounter >= MAX_NO_JQUERY_COUNTER) {
-            return true;
-          }
-
-        } else {
-          noJQueryCounter = 0;
-        }
+          if (noJQueryCounter >= MAX_NO_JQUERY_COUNTER) return true;
+        } else noJQueryCounter = 0;
 
         return "complete".equals(documentReadyState) && jQueryActive == 0;
       }
     });
     turnOnImplicitlyWaitTime();
-
-    // wait for Ajax responses to be processed
     sleeper(500);
   }
 

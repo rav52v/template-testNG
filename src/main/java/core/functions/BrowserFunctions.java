@@ -13,7 +13,7 @@ public class BrowserFunctions extends BaseFunction {
 
   /**
    * Switches to window, which is not main window
-   * This method support only one additional window
+   * This method supports only one additional window
    */
   public void switchToSecondTab() {
     log.debug("Switch to second tab");

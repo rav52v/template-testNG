@@ -6,7 +6,7 @@
   </Properties>
 
   <Appenders>
-    <File name="CurrentTest" fileName="logs/last_test_log.log" append="false">
+    <File name="CurrentTest" fileName="logs/last-test_log.log" append="false">
       <PatternLayout>
         <Pattern>${LOG_PATTERN}</Pattern>
       </PatternLayout>
@@ -14,7 +14,7 @@
     </File>
 
     <RollingFile name="FullLogFile" fileName="logs/log.log" append="true"
-                 filePattern="logs/$${date:yyyy-MM-dd}/log-%d{MM-dd-yyyy}-%i.log">
+                 filePattern="logs/$${date:yyyy-MM-dd}/log_%d{MM_dd_yyyy}(%i).log">
       <Policies>
         <SizeBasedTriggeringPolicy size="30KB"/>
       </Policies>

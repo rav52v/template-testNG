@@ -134,4 +134,13 @@ public class GetFunctions extends BaseFunction {
     for (WebElement element : webElements) if (element.getCssValue(cssProperty).equals(differentValue)) return element;
     throw new RuntimeException("Couldn't find element with one different cssProperty: " + cssProperty);
   }
+
+  public String getElementXPath(WebElement element) {
+    return (String) ((JavascriptExecutor) driver.getDriver()).executeScript(
+            "gPt = function (c) {if (c.id !== '') {return '//'+c.tagName + '[@id=\\'' + c.id + '\\']'}" +
+                    "if (c === document.body) {return c.tagName}var a = 0;var e = c.parentNode.childNodes;" +
+                    "for (var b = 0; b < e.length; b++) {var d = e[b];if (d === c) {return gPt(c.parentNode) " +
+                    "+ '/' + c.tagName + '[' + (a + 1) + ']'}if (d.nodeType === 1 && d.tagName === c.tagName) " +
+                    "{a++}}};return gPt(arguments[0]);", element);
+  }
 }
