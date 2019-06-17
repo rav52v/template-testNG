@@ -2,6 +2,8 @@ package main.java.core.functions;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -104,5 +106,21 @@ public class BrowserFunctions extends BaseFunction {
 
   public Alert getAlertControl() {
     return driver.getDriver().switchTo().alert();
+  }
+
+  public void acceptAlert() {
+    changeImplicitlyWaitTime(0);
+    int i = 0;
+    while (i++ < 10) {
+      try {
+        new WebDriverWait(driver.getDriver(), 5).until(ExpectedConditions.alertIsPresent()).accept();
+        log.debug("Accepted alert");
+        break;
+      } catch (NoAlertPresentException e) {
+        log.debug("Waiting for alert, attempt {" + i + "/10}");
+      } finally {
+        turnOnImplicitlyWaitTime();
+      }
+    }
   }
 }

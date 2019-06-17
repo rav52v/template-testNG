@@ -1,6 +1,7 @@
 package main.java.core.functions;
 
 import main.java.core.Driver;
+import main.java.core.enums.Packages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,8 +22,8 @@ import static main.java.core.ConfigService.getConfigService;
 abstract class BaseFunction {
   Driver driver;
   final Logger log = LogManager.getLogger();
-  final Path pathInputFolder = Paths.get("inputFolder");
-  final Path pathOutputFolder = Paths.get("outputFolder");
+  final String PATH_TO_INPUT_FOLDER = Packages.INPUT_FOLDER.getPackagePath();
+  final String PATH_TO_OUTPUT_FOLDER = Packages.OUTPUT_FOLDER.getPackagePath();
   final long DEFAULT_WEB_DRIVER_WAIT_TIME = getConfigService().getLongProperty("General.webDriverWait");
 
   BaseFunction() {
@@ -94,7 +95,6 @@ abstract class BaseFunction {
     double timeLeftInMinutes = (100.0 / percentDone) * (passedTimeInMinutes) - passedTimeInMinutes + 1.0;
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MINUTE, (int) timeLeftInMinutes);
-
     return new SimpleDateFormat("HH:mm").format(calendar.getTime());
   }
 

@@ -23,14 +23,12 @@ public class Generators {
     public String getName() {
       return namesArray[new Random().nextInt(namesArray.length)];
     }
-
   }
 
   private final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private final String LOWER = UPPER.toLowerCase();
   private final String NUMBER = "0123456789";
   private Random random = new Random();
-
 
   public String gName() {
     Names[] namesArray = {Names.MALE, Names.FEMALE};
@@ -55,7 +53,7 @@ public class Generators {
 
   public String gUpper(int wordSize) {
     StringBuilder result = new StringBuilder();
-    for (int i = 0; i < wordSize; i++)  result.append(UPPER.charAt(random.nextInt(UPPER.length())));
+    for (int i = 0; i < wordSize; i++) result.append(UPPER.charAt(random.nextInt(UPPER.length())));
     return result.toString();
   }
 
@@ -63,8 +61,7 @@ public class Generators {
     StringBuilder result = new StringBuilder();
     for (int i = 0; i < wordSize; i++) {
       char[] charArray = {gLower(1).charAt(0), gUpper(1).charAt(0), gNumbers(1).charAt(0)};
-      String temp = String.valueOf(charArray[random.nextInt(charArray.length)]);
-      result.append(temp);
+      result.append(charArray[random.nextInt(charArray.length)]);
     }
     return result.toString();
   }

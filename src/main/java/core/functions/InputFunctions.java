@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.util.Arrays;
-import java.util.List;
 
 public class InputFunctions extends BaseFunction {
 

@@ -41,6 +41,10 @@ public class GetFunctions extends BaseFunction {
     return element.getAttribute(attribute);
   }
 
+  public String getValueFromReadOnlyElement(WebElement element) {
+    return (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].value", element);
+  }
+
   public String searchElementInElementAndGetText(WebElement element, By by) {
     log.debug("Search element located By {" + by + "} in element {"
             + getElementInfo(element) + "} and get text");
@@ -57,7 +61,6 @@ public class GetFunctions extends BaseFunction {
         }
       }
     }
-
     return result;
   }
 
@@ -81,7 +84,6 @@ public class GetFunctions extends BaseFunction {
         }
       }
     }
-
     return result;
   }
 
@@ -99,9 +101,7 @@ public class GetFunctions extends BaseFunction {
       log.error("Given list is empty");
       return null;
     }
-
     for (WebElement element : elementList) if (element.getText().matches(regex)) return element;
-
     log.debug("List doesn't contain given regex value {" + regex + "}");
     return null;
   }

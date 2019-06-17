@@ -13,7 +13,6 @@ public class Database {
   private Connection con;
   private Logger log;
 
-
   private Database() {
     log = LogManager.getLogger(this);
     try {
