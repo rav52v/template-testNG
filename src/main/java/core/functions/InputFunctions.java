@@ -24,8 +24,7 @@ public class InputFunctions extends BaseFunction {
   }
 
   public void sendKeysToElement(WebElement element, CharSequence... value) {
-    log.debug("Send keys {" + Arrays.toString(value) + "} to element {"
-            + getElementInfo(element) + "}");
+    log.debug("Send keys {" + Arrays.toString(value) + "} to element {" + getElementInfo(element) + "}");
     try {
       element.clear();
     } catch (Exception ignored) {
@@ -48,20 +47,20 @@ public class InputFunctions extends BaseFunction {
     new Actions(driver.getDriver()).sendKeys(value).perform();
   }
 
-  protected void selectByVisibleTextWithRegex(WebElement selectElement, String regex) {
+  public void selectByVisibleTextWithRegex(WebElement selectElement, String regex) {
     Select select = new Select(selectElement);
     for (WebElement option : select.getOptions()) {
       if (option.getText().matches(regex)) {
         select.selectByVisibleText(option.getText());
         log.debug("Option selected by visible text: {" + option.getText() + "}");
+        break;
       }
     }
   }
 
-  protected void selectByValue(WebElement selectElement, String value) {
+  public void selectByValue(WebElement selectElement, String value) {
     try {
-      Select select = new Select(selectElement);
-      select.selectByValue(value);
+      new Select(selectElement).selectByValue(value);
       log.debug("Option selected by value: {" + value + "}");
     } catch (NoSuchElementException e) {
       log.error(e.toString());
@@ -69,10 +68,9 @@ public class InputFunctions extends BaseFunction {
     }
   }
 
-  protected void selectByIndex(WebElement selectElement, int index) {
+  public void selectByIndex(WebElement selectElement, int index) {
     try {
-      Select select = new Select(selectElement);
-      select.deselectByIndex(index);
+      new Select(selectElement).selectByIndex(index);
       log.debug("Option selected by index: {" + index + "}");
     } catch (NoSuchElementException e) {
       log.error(e.toString());

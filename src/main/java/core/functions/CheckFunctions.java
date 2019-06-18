@@ -114,13 +114,13 @@ public class CheckFunctions extends BaseFunction {
     changeImplicitlyWaitTime(0);
     try {
       new WebDriverWait(driver.getDriver(), maxWaitTimeInSec)
-              .withMessage("Page title actual: " + driver.getDriver().getTitle() + " expected: " + title)
+              .withMessage("Page title actual: {" + driver.getDriver().getTitle() + "} expected: {" + title + "}")
               .until(ExpectedConditions.titleContains(title));
       return true;
     } catch (TimeoutException e) {
-      log.error("Page title actual: " + driver.getDriver().getTitle() + " expected: " + title);
-      log.debug("Probably page was loading too long, page load time is: " + getConfigService()
-              .getLongProperty("General.pageLoadTime"));
+      log.error("Page title actual: {" + driver.getDriver().getTitle() + "} expected: {" + title + "}");
+      log.debug("Probably page was loading too long, page load time is: {"
+              + getConfigService().getLongProperty("General.pageLoadTime") + "}");
       return false;
     } finally {
       turnOnImplicitlyWaitTime();

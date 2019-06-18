@@ -16,8 +16,8 @@ public class GetFunctions extends BaseFunction {
     log.debug("Get text from element {" + getElementInfo(element) + "}");
     String value = element.getText();
 
-    if (value == null) value = element.getAttribute("value").trim();
-    else value = value.trim();
+    value = value == null || value.isEmpty() ? element.getAttribute("value").trim() : value.trim();
+    value = value.isEmpty() ? getValueFromReadOnlyElement(element) : value;
 
     log.debug("Got value {" + (value.length() < 50 ? value.replaceAll("[\n]", "") : value
             .substring(0, 50).concat("...")).replaceAll("([\n])|(^\\s*)|(\\s*$)|([ ]{3,})", "") + "}");
@@ -29,8 +29,8 @@ public class GetFunctions extends BaseFunction {
     log.debug("Get text from parent of element {" + getElementInfo(element) + "}");
     String value = element.getText();
 
-    if (value == null) value = element.getAttribute("value").trim();
-    else value = value.trim();
+    value = value == null || value.isEmpty() ? element.getAttribute("value").trim() : value.trim();
+    value = value.isEmpty() ? getValueFromReadOnlyElement(element) : value;
 
     log.debug("Got value {" + (value.length() < 50 ? value.replaceAll("[\n]", "") : value
             .substring(0, 50).concat("...")).replaceAll("([\n])|(^\\s*)|(\\s*$)|([ ]{3,})", "") + "}");

@@ -87,7 +87,7 @@ public class ClickFunctions extends BaseFunction {
   }
 
   public void clickNTimes(WebElement element, int number, long... maxWaitTime) {
-    log.debug("Click element " + number + " times {" + getElementInfo(element) + "}");
+    log.debug("Click element {" + number + "} times {" + getElementInfo(element) + "}");
     for (int i = 0; i < number; i++) clickOn(element, maxWaitTime);
   }
 

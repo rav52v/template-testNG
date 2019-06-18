@@ -4,7 +4,6 @@ import main.java.core.enums.Packages;
 import org.openqa.selenium.*;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 import java.io.*;
 import java.net.URL;
@@ -19,18 +18,18 @@ public class FileFunctions extends BaseFunction {
   }
 
   /**
-   * @param fileName name of captured file
+   * @param fileName name of captured file e.g. "sample_file"
    * @param zoom     zoom in: [101-...], zoom out: [1-99]
    */
   public void captureScreenshot(String fileName, int zoom) {
     JavascriptExecutor js = (JavascriptExecutor) driver.getDriver();
     js.executeScript("document.body.style.zoom='" + zoom + "%'");
     File scrFile = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
-    File target = new File(PATH_TO_OUTPUT_FOLDER + "/" + fileName + ".png");
+    File target = new File(PATH_TO_OUTPUT_FOLDER + fileName + ".png");
     try {
       if (target.exists()) target.delete();
       Files.copy(scrFile.toPath(), target.toPath());
-      log.debug("File copied to {" + PATH_TO_OUTPUT_FOLDER + "\\" + fileName + ".png}");
+      log.debug("File copied to {" + PATH_TO_OUTPUT_FOLDER + fileName + ".png}");
     } catch (IOException e) {
       log.error(e.toString());
       e.printStackTrace();
@@ -40,7 +39,7 @@ public class FileFunctions extends BaseFunction {
 
   public void captureScreenshotOfElement(String fileName, WebElement element) {
     log.debug("Capture image of element {" + getElementInfo(element) + "}");
-    File target = new File(PATH_TO_OUTPUT_FOLDER + "/" + fileName + ".png");
+    File target = new File(PATH_TO_OUTPUT_FOLDER + fileName + ".png");
     if (target.exists()) target.delete();
     File screen = ((TakesScreenshot) driver.getDriver()).getScreenshotAs(OutputType.FILE);
 
@@ -49,11 +48,9 @@ public class FileFunctions extends BaseFunction {
     int height = element.getSize().getHeight();
 
     try {
-      BufferedImage img = ImageIO.read(screen);
-      BufferedImage dest = img.getSubimage(p.getX(), p.getY(), width, height);
-      ImageIO.write(dest, "png", screen);
+      ImageIO.write(ImageIO.read(screen).getSubimage(p.getX(), p.getY(), width, height), "png", screen);
       Files.copy(screen.toPath(), target.toPath());
-      log.debug("File copied to {" + PATH_TO_OUTPUT_FOLDER + "\\" + fileName + ".png}");
+      log.debug("File copied to {" + PATH_TO_OUTPUT_FOLDER + fileName + ".png}");
     } catch (IOException e) {
       e.printStackTrace();
     } catch (RasterFormatException ex) {
@@ -64,10 +61,8 @@ public class FileFunctions extends BaseFunction {
   }
 
   public void saveTextToFile(String textValue, String fileName, boolean append) {
-    File target = new File(PATH_TO_OUTPUT_FOLDER + "/" + fileName + ".txt");
-    try (FileWriter fw = new FileWriter(target, append);
-         BufferedWriter bw = new BufferedWriter(fw);
-         PrintWriter out = new PrintWriter(bw)) {
+    try (FileWriter fw = new FileWriter(new File(PATH_TO_OUTPUT_FOLDER + fileName + ".txt"), append);
+         PrintWriter out = new PrintWriter(new BufferedWriter(fw))) {
       out.print(textValue);
     } catch (IOException e) {
       e.printStackTrace();
@@ -81,13 +76,12 @@ public class FileFunctions extends BaseFunction {
   public String getTextFromFile(String fileName) {
     String result = "";
     try {
-      BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_INPUT_FOLDER + "/" + fileName));
+      BufferedReader reader = new BufferedReader(new FileReader(PATH_TO_INPUT_FOLDER + fileName));
       StringBuilder sb = new StringBuilder();
       String line;
-      String ls = System.getProperty("line.separator");
       while ((line = reader.readLine()) != null) {
         sb.append(line);
-        sb.append(ls);
+        sb.append(System.getProperty("line.separator"));
       }
       reader.close();
       result = sb.toString();
@@ -109,20 +103,13 @@ public class FileFunctions extends BaseFunction {
   public void saveImageFromUrl(List<WebElement> elementList, String attribute, String fileName, String fileFormat) {
     int counter = 0;
     for (WebElement x : elementList) {
-      String source = x.getAttribute(attribute);
       try {
-        URL imageURL = new URL(source);
-        BufferedImage saveImage = ImageIO.read(imageURL);
-        ImageIO.write(saveImage, fileFormat, new File(PATH_TO_OUTPUT_FOLDER + String.format("%03d ", counter++)
-                + fileName + "." + fileFormat));
+        ImageIO.write(ImageIO.read(new URL(x.getAttribute(attribute))), fileFormat, new File(
+                PATH_TO_OUTPUT_FOLDER + String.format("%03d ", counter++) + fileName + "." + fileFormat));
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
-    log.debug("Downloaded {" + counter + " images}");
-  }
-
-  public String getRelativePathToFile(String fileName) {
-    return PATH_TO_INPUT_FOLDER + "\\" + fileName;
+    log.debug("Downloaded {" + counter + "} images}");
   }
 }

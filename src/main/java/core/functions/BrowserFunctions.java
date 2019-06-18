@@ -100,7 +100,6 @@ public class BrowserFunctions extends BaseFunction {
       refreshingListAfterSize = elementList.size();
     }
     while (refreshingListAfterSize > refreshingListSize);
-
     log.debug("Found {" + elementList.size() + " elements}, operation took {" + getPastTimeInMillis(startTime) + "}");
   }
 
