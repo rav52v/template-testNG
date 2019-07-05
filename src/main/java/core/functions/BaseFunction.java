@@ -42,7 +42,7 @@ abstract class BaseFunction {
     sleeper(1000);
     changeImplicitlyWaitTime(0);
 
-    new WebDriverWait(driver.getDriver(), getConfigService().getLongProperty("general.pageLoadTime"))
+    new WebDriverWait(driver.getDriver(), getConfigService().getLongProperty("General.pageLoadTime"))
             .ignoring(StaleElementReferenceException.class).until(new ExpectedCondition<Boolean>() {
 
       private final int MAX_NO_JQUERY_COUNTER = 3;
